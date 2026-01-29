@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let bookName = prompt ("Nhập tên sách:").trim().toUpperCase();
+        let authorName = prompt ("Nhập tên tác giả:").toLowerCase();
+        let yearOfPublication = + prompt ("Nhập năm xuất bản:");
+        let price = + prompt ("Nhập giá tiền:");
+        let quantity = + prompt ("Nhập số lượng:");
+        const bookAge = 2026 - year;
+        let sum = price * quantity;
+        let firstName = authorName .substring(0, 3);
+        let number = Math.floor(Math.random()*1000) + 1;
+        let bookId = `${firstName}${year} - ${number}`;
+        console.log("--- PHIẾU NHẬP KHO ---");
+        console.log("Mã sách: " + bookId);
+        console.log("Tên sách: " + title);
+        console.log("Tác giả: " + nameAuthor);
+        console.log("Năm xuất bản: "+date);
+        console.log("Tuổi sách: "+bookAge);
+        console.log("Tổng giá trị: "+sumPrice + "VND");
+        console.log("Ngăn kệ gợi ý: Kệ số "+Math.floor(Math.random()) + 1);
+    </script>
+</body>
+</html>
