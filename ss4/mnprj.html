@@ -1,0 +1,108 @@
+<script>
+    let login = 0;
+    let userName, password; 
+
+    while (login < 3) {
+        userName = prompt("Tài khoản:");
+        password = prompt("Mật khẩu:");
+
+        if (userName === "admin" && password === "12345") {
+            console.log("Đăng nhập thành công!");
+            break;
+        } else {
+            login++;
+            if (userName !== "admin" && password !== "12345") {
+                console.log(`Sai cả tài khoản và mật khẩu lần ${login}`);
+            } else if (userName !== "admin") {
+                console.log(`Sai tài khoản lần ${login}`);
+            } else {
+                console.log(`Sai mật khẩu lần ${login}`);
+            }
+        }
+    }
+
+    if (login === 3) {
+        console.log("Tài khoản đã bị khóa");
+    } else {
+        let choice;
+        do {
+            choice = +prompt(`
+                1. Phân loại mã số sách.
+                2. Thiết kế bản đồ kho sách.
+                3. Dự toán phí bảo trì.
+                4. Tìm mã số sách may mắn.
+                5. Thoát.
+            `);
+            switch (choice) {
+                case 1:
+                    let count = 0;
+                    let even = 0;
+                    let odd = 0;
+                    let bookId;
+                    do {
+                        bookId = +prompt("Nhập mã số sách:");
+                        if (bookId === 0)
+                        break;
+                        count++;
+                        if (bookId % 2 == 0) {
+                            even++;
+                        } else {
+                            odd++;
+                        }
+                    } while (bookId !== 0);
+                    console.log(`Tổng số lượng mã sách đã nhập ${count}`);
+                    console.log(`Có ${even} mã là số chẵn (Sách khoa học)`);
+                    console.log(`Có ${odd} mã là số lẻ (Sách nghệ thuật)`);
+                    break;
+                case 2:
+                    let rows = +prompt("Nhập số hàng:");
+                    let cols = +prompt("Nhập số cột:");
+                    for (let i = 1; i <= rows; i++) {
+                        let rowContent = ""; 
+                    for (let j = 1; j <= cols; j++) {
+                        if (i === j) {
+                        rowContent += `[${i}-${j}] (Kệ ưu tiên)  `;
+                        } else {
+                        rowContent += `[${i}-${j}]  `;
+                        }
+                    }
+                    console.log(rowContent);
+                    }
+                    break;
+                case 3:
+                    let quantity = +prompt("Nhập số lượng sách hiện có:");
+                    let current = +prompt("Nhập phí bảo trì cho 1 cuốn");
+                    let totalYear =+prompt("Nhập số năm dự toán");
+                    for (let i = 1; i <= totalYear; i++) {
+                        let total = quantity * current;
+                        console.log(`Năm ${i}: Chi phí bảo trì là ${total}`);
+                        current = current + (current * 0.1)
+                    }
+                    break;
+                case 4:
+                    let n =+prompt("Nhập vào số N:");
+                    let lucky = 0;
+                    let luckyList ="";
+                    console.log(`Danh sách số may mắn từ 1 đến ${n}`);
+                    for (let i = 0; i <= n; i++) {
+                        if (i % 3==0 && i%5 != 0) {
+                            luckyList += i + "";
+                            lucky++;
+                        }
+                    }
+                    if (lucky > 0){
+                        console.log("Các mã số may mắn tìm được là: " + luckyList);
+                        console.log(`Tổng cộng có ${lucky} số may mắn tìm được`);
+                    } else {
+                        console.log("Không tìm thấy mã số nào thỏa mãn điều kiện");
+                    }
+                    break;
+                case 5:
+                    console.log("Hệ thống đang đăng xuất...");
+                    break;
+                default: console.log("Lựa chọn không hợp lệ");
+                break;
+            }
+        } while (choice !== 5);
+    }
+</script>
