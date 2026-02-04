@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let bookList = [];
+        let returnBooks = +prompt("Hôm nay có bao nhiêu cuốn sách bị trả muộn: ");
+        for (i = 1;i <= returnBooks; i++){
+            let books = prompt("Nhập tên cuốn sách thứ "+ i +":");
+            bookList.push(books);
+        }
+        console.log("Tổng số sách bị trả muộn:"+ bookList.length);
+        console.log("Danh sách sách bị trả muộn:");
+        let wordCount = 0;
+        for(let i = 0;i < bookList.length;i++){
+            console.log((i + 1)+"."+bookList[i]);
+        
+        if(bookList[i].length >20){
+            wordCount++;
+        }
+    }
+        console.log("Số lượng sách có tên dài hơn 20 ký tự: " + wordCount);
+    </script>
+</body>
+</html>

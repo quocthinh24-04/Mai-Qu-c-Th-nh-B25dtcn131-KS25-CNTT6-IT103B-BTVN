@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let booksId = [];
+        let booksName = [];
+        let inventoryQuantity = [];
+        let n = +prompt("Có bao nhiêu loại sách cần kiểm tra bổ sung hôm nay?");
+        for (let i = 1;i <= n; i++){
+            let id = prompt("Nhập mã sách thứ "+i+":");
+            let bookName = prompt("Nhập tên sách thứ "+i+":");
+            let quantity = +prompt("Nhập số lượng tồn kho hiện tại:");
+            booksId.push(id);
+            booksName.push(bookName)
+            inventoryQuantity.push(quantity)
+        }
+        console.log("Danh sách xem xét cần bổ sung ("+booksId.length+") loại: ");
+        let stockCount = 0;
+        let stockId = [];
+        for(let i = 0;i <booksId.length;i++){
+            console.log((i+1)+ "Mã: "+booksId[i]+"-Tên:"+booksName[i]+"-Còn:"+inventoryQuantity[i]);
+            if(inventoryQuantity[i]<=5){
+            stockCount++;
+            }
+            if(inventoryQuantity[i]===0){
+            stockId.push(booksId[i]);
+            }
+        }
+        console.log("Số sách có tồn kho <= 5 bản: " + stockCount + " loại");
+        console.log("Các mã sách đã hết hàng (0 bản): " + stockId.join(", "));
+    </script>
+</body>
+</html>
