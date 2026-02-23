@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let playerIds = [];
+        let playerPositions = [];
+        const positionMapping = ["", "Thủ môn", "Hậu vệ", "Tiền vệ", "Tiền đạo"];
+
+        let numberOfPlayers = parseInt(prompt("Có bao nhiêu cầu thủ cần nhập vào đội bóng?"));
+
+        for (let i = 0; i < numberOfPlayers; i++) {
+            let id;
+            do {
+                id = prompt(`Nhập mã cầu thủ thứ ${i + 1}:`);
+                if (playerIds.includes(id)) {
+                    alert("Mã này đã tồn tại! Vui lòng nhập mã khác.");
+                }
+            } while (playerIds.includes(id));
+
+            playerIds.push(id);
+            let pos = parseInt(prompt("Chọn vị trí (1: Thủ môn, 2: Hậu vệ, 3: Tiền vệ, 4: Tiền đạo):"));
+            playerPositions.push(pos);
+        }
+
+        function printTeamRoster() {
+            console.log(`Đội bóng hiện tại (${playerIds.length} cầu thủ):`);
+            for (let i = 0; i < playerIds.length; i++) {
+                console.log(`${i + 1}. ${playerIds[i]} - ${positionMapping[playerPositions[i]]}`);
+            }
+        }
+
+        function findPlayersByPosition(position) {
+            let foundIndices = [];
+            for (let i = 0; i < playerPositions.length; i++) {
+                if (playerPositions[i] === position) {
+                    foundIndices.push(i);
+                }
+            }
+            return foundIndices;
+        }
+
+        printTeamRoster();
+
+        let searchPosition = parseInt(prompt("Nhập vị trí muốn tìm (1: Thủ môn, 2: Hậu vệ, 3: Tiền vệ, 4: Tiền đạo):"));
+        let resultIndices = findPlayersByPosition(searchPosition);
+
+        console.log(`Số cầu thủ ở vị trí ${positionMapping[searchPosition]}: ${resultIndices.length}`);
+        console.log(`Các chỉ số cầu thủ ở vị trí ${positionMapping[searchPosition]}: ${resultIndices.join(", ")}`);
+    </script>
+</body>
+
+</html>
