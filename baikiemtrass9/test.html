@@ -11,19 +11,19 @@
     <script>
         let orders = ["Đơn hàng A", "Đơn hàng B", "Đơn hàng C", "Đơn hàng D", "Đơn hàng E"];
         let revenues = [1500, 2800, 1200, -500, 3200];
-        let boolean = revenues.some((elemen, index) => elemen < 0)
-        let every = revenues.every((elemen, index) => {
+        let boolean = revenues.some((elemen, index) => elemen < 0);
+        let every = revenues.every((elemen,index) => {
             elemen > 500;
         })
         console.log(boolean);
         console.log(every);
         if (boolean) {
             console.log(`Có đơn hàng âm: true`);
-
+            
         }
         if (every) {
             console.log(`Tất cả trên 500: false`);
-
+            
         }
     </script>
 </body>

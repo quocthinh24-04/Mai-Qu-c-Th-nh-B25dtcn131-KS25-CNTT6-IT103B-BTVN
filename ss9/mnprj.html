@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Management</title>
+</head>
+
+<body>
+    <script>
+        let listProduct = ["iPhone 15", "Samsung S23", "Oppo Reno", "Xiaomi 13", "Nokia C20"];
+        let unitPrices = [1200, 900, 450, 600, 80];
+        let inventoryCount = [10, 5, 0, 8, 15];
+
+        let isRunning = true;
+
+        do {
+            let userInput = prompt(`=== QUẢN LÝ KHO HÀNG ===
+1. Danh sách sản phẩm Luxury (>500)
+2. Kiểm tra kho & mức giá
+3. Tính tổng vốn lưu động
+4. Áp dụng giảm giá toàn bộ (10%)
+5. Tra cứu sản phẩm
+6. Thống kê số lượng tồn
+7. Dừng chương trình
+
+Lựa chọn của bạn là:`);
+
+            if (userInput === null) break;
+
+            let action = parseInt(userInput);
+
+            switch (action) {
+                case 1:
+                    let luxuryItems = listProduct.filter((item, idx) => unitPrices[idx] > 500);
+                    alert(`Sản phẩm giá cao (>500):\n${luxuryItems.length > 0 ? luxuryItems.join(" | ") : "Trống"}`);
+                    break;
+
+                case 2:
+                    let isSoldOut = inventoryCount.includes(0);
+                    let checkPriceFloor = unitPrices.every(val => val > 100);
+                    alert(`Trạng thái kho:\n- Hết hàng: ${isSoldOut ? "Có" : "Không"}\n- Toàn bộ > 100: ${checkPriceFloor ? "Đúng" : "Sai"}`);
+                    break;
+
+                case 3:
+                    let totalCapital = unitPrices.reduce((acc, curr, idx) => acc + (curr * inventoryCount[idx]), 0);
+                    alert(`Tổng giá trị hàng hóa: ${totalCapital.toLocaleString()} USD`);
+                    break;
+
+                case 4:
+                    for (let i = 0; i < unitPrices.length; i++) {
+                        unitPrices[i] *= 0.9;
+                    }
+                    alert("Đã thực hiện chiết khấu 10% thành công!");
+                    break;
+
+                case 5:
+                    let searchKey = prompt("Nhập tên sản phẩm:").toLowerCase();
+                    let matches = [];
+                    listProduct.forEach((name, i) => {
+                        if (name.toLowerCase().indexOf(searchKey) !== -1) {
+                            matches.push(`${name} [Giá: ${unitPrices[i]} - SL: ${inventoryCount[i]}]`);
+                        }
+                    });
+                    alert(matches.length > 0 ? `Tìm thấy:\n${matches.join("\n")}` : "Không có kết quả.");
+                    break;
+
+                case 6:
+                    let reportData = listProduct.map((name, i) => `${name}: ${inventoryCount[i] > 0 ? "Sẵn hàng" : "Cháy hàng"} (${inventoryCount[i]})`);
+                    alert(`Chi tiết tồn kho:\n${reportData.join("\n")}`);
+                    break;
+
+                case 7:
+                    isRunning = false;
+                    alert("Hệ thống đã đóng!");
+                    break;
+
+                default:
+                    alert("Yêu cầu không hợp lệ!");
+            }
+        } while (isRunning);
+    </script>
+</body>
+
+</html>
