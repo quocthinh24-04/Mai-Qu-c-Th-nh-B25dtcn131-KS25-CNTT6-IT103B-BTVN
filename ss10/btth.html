@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Management</title>
+</head>
+<body>
+    <script>
+        let footballTeam = [
+            { id: 1, fullName: "Nguyen Van A", score: 10, role: "FW" },
+            { id: 2, fullName: "Tran Van B", score: 5,  role: "MF" },
+            { id: 3, fullName: "Le Van C",   score: 0,  role: "DF" },
+            { id: 4, fullName: "Pham Van D", score: 12, role: "FW" },
+            { id: 5, fullName: "Dang Van E", score: 0,  role: "GK" }
+        ];
+
+        const showAllPlayers = (data) => {
+            data.forEach(item => {
+                console.log(`ID: ${item.id} | Tên: ${item.fullName} | Vị trí: ${item.role} | Bàn thắng: ${item.score}`);
+            });
+        };
+
+        const registerNewMember = (data) => {
+            let nextId = data.length > 0 ? data[data.length - 1].id + 1 : 1;
+            let fullName = prompt("Họ và tên:");
+            let score = parseInt(prompt("Số bàn thắng:"));
+            let role = prompt("Vị trí thi đấu:");
+
+            data.push({ id: nextId, fullName, score, role });
+        };
+
+        const searchById = (data) => {
+            let targetId = Number(prompt("Nhập ID cần truy vấn:"));
+            let found = data.find(p => p.id === targetId);
+
+            if (found) {
+                console.log(`Kết quả: ${found.fullName} - Chức vụ: ${found.role} - Ghi được: ${found.score}`);
+            } else {
+                console.log("Không tìm thấy dữ liệu phù hợp.");
+            }
+        };
+
+        const incrementScore = (data) => {
+            let targetId = Number(prompt("ID cầu thủ ghi bàn:"));
+            let player = data.find(p => p.id === targetId);
+            
+            if (player) {
+                player.score++;
+                console.log(`Xác nhận: ${player.fullName} hiện có ${player.score} bàn.`);
+            } else {
+                console.log("ID không tồn tại.");
+            }
+        };
+
+        const terminateContract = (data) => {
+            let targetId = Number(prompt("ID cầu thủ rời đội:"));
+            let pos = data.findIndex(p => p.id === targetId);
+
+            if (pos !== -1) {
+                let deleted = data.splice(pos, 1);
+                console.log(`Đã gỡ bỏ: ${deleted[0].fullName} khỏi danh sách.`);
+            } else {
+                console.log("Lỗi: Không tìm thấy ID.");
+            }
+        };
+
+        let menuOption;
+        do {
+            menuOption = prompt(`
+                --- QUẢN LÝ ĐỘI HÌNH ---
+                1. Hiển thị toàn bộ
+                2. Tuyển thêm người
+                3. Tra cứu ID
+                4. Cộng bàn thắng
+                5. Xóa nhân sự
+                0. Đóng
+            `);
+
+            switch (menuOption) {
+                case "1": showAllPlayers(footballTeam); break;
+                case "2": registerNewMember(footballTeam); break;
+                case "3": searchById(footballTeam); break;
+                case "4": incrementScore(footballTeam); break;
+                case "5": terminateContract(footballTeam); break;
+                case "0": console.log("Hệ thống tạm dừng."); break;
+                default: console.log("Lệnh không hợp lệ.");
+            }
+        } while (menuOption !== "0");
+
+    </script>
+</body>
+</html>

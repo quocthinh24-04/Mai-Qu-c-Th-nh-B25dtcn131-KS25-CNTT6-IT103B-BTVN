@@ -20,7 +20,6 @@
         let findSearch = function () {
             let searchName = prompt("Nhập tên cầu thủ cần tìm:");
             let found = squad.find(player => player[0].toLowerCase().includes(searchName.toLowerCase()));
-
             if (found) {
                 alert(`Tìm thấy: ${found[0]} | Vị trí: ${found[2]} | Bàn thắng: ${found[1]}`);
             } else {
@@ -30,7 +29,6 @@
         let filterPosition = function () {
             let pos = prompt("Nhập vị trí muốn lọc (FW/MF/DF/GK):").toUpperCase();
             let filtered = squad.filter(player => player[2] === pos);
-
             if (filtered.length > 0) {
                 let result = `=> KẾT QUẢ LỌC VỊ TRÍ ${pos}:\n`;
                 filtered.forEach(p => result += `- ${p[0]} (${p[1]} bàn)\n`);

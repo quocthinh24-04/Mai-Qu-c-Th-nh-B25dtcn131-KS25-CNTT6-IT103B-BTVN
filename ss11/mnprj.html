@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Sinh Viên</title>
+</head>
+<body>
+    <script>
+        let studentData = [
+            { sid: 1, full_name: "Nguyễn Văn A", years: 20, points: 8.5, active: "active" },
+            { sid: 2, full_name: "Nguyễn Thị B", years: 17, points: 7.2, active: "active" },
+            { sid: 3, full_name: "Trần Văn C", years: 19, points: 9.0, active: "inactive" }
+        ];
+
+        let isWorking = true;
+
+        while (isWorking) {
+            let cmd = Number(prompt(`
+                --- HỆ THỐNG QUẢN LÝ ---
+                1. Thêm mới hồ sơ
+                2. Xem toàn bộ danh sách
+                3. Lọc danh sách học bổng (>8.0)
+                4. Chỉnh sửa thông tin
+                5. Xóa bỏ bản ghi
+                6. Kiểm tra điều kiện
+                7. Thống kê học thuật
+                8. Chuẩn hóa dữ liệu
+                9. Thoát
+            `));
+
+            switch (cmd) {
+                case 1:
+                    let nameStr = prompt("Tên sinh viên:");
+                    let ageVal = +prompt("Tuổi:");
+                    let gpaVal = +prompt("Điểm GPA:");
+                    let statusStr = prompt("Trạng thái (active/inactive):");
+                    
+                    studentData.push({
+                        sid: Date.now(),
+                        full_name: nameStr,
+                        years: ageVal,
+                        points: gpaVal,
+                        active: statusStr
+                    });
+                    alert("Đã thêm thành công!");
+                    break;
+
+                case 2:
+                    if (studentData.length === 0) {
+                        console.log("Không có dữ liệu.");
+                    } else {
+                        console.log("--- DANH SÁCH HIỆN TẠI ---");
+                        studentData.forEach((item, i) => {
+                            console.log(`${i + 1}. Mã: ${item.sid} | Tên: ${item.full_name} | Điểm: ${item.points}`);
+                        });
+                        console.table(studentData);
+                    }
+                    break;
+
+                case 3:
+                    let meritList = studentData.filter(item => item.points > 8.0);
+                    if (meritList.length > 0) {
+                        console.log("--- DANH SÁCH ĐẠT HỌC BỔNG ---");
+                        console.table(meritList);
+                    } else {
+                        console.log("Không có ai đủ điều kiện.");
+                    }
+                    break;
+
+                case 4:
+                    let idTarget = +prompt("Nhập ID cần sửa:");
+                    let currentStudent = studentData.find(item => item.sid === idTarget);
+
+                    if (currentStudent) {
+                        currentStudent.full_name = prompt("Tên mới:", currentStudent.full_name) || currentStudent.full_name;
+                        let pointInput = prompt("Điểm mới:", currentStudent.points);
+                        currentStudent.points = pointInput !== "" ? +pointInput : currentStudent.points;
+                        alert("Cập nhật hoàn tất!");
+                    } else {
+                        alert("Không tìm thấy mã sinh viên này.");
+                    }
+                    break;
+
+                case 5:
+                    let idKill = +prompt("Nhập ID cần xóa:");
+                    let lenBefore = studentData.length;
+                    studentData = studentData.filter(item => item.sid !== idKill);
+                    alert(studentData.length < lenBefore ? "Đã xóa bản ghi." : "ID không hợp lệ.");
+                    break;
+
+                case 6:
+                    if (studentData.length > 0) {
+                        let hasMinor = studentData.some(item => item.years < 18);
+                        let isFullActive = studentData.every(item => item.active === "active");
+                        alert(`Có người dưới 18: ${hasMinor ? "Có" : "Không"}\nTất cả hoạt động: ${isFullActive ? "Đúng" : "Sai"}`);
+                    }
+                    break;
+
+                case 7:
+                    if (studentData.length > 0) {
+                        let avg = studentData.reduce((s, c) => s + c.points, 0) / studentData.length;
+                        let allPoints = studentData.map(item => item.points);
+                        alert(`--- THỐNG KÊ ---
+                        - GPA TB: ${avg.toFixed(2)}
+                        - Cao nhất: ${Math.max(...allPoints)}
+                        - Thấp nhất: ${Math.min(...allPoints)}`);
+                    }
+                    break;
+
+                case 8:
+                    let normList = studentData.map(item => ({ 
+                        ...item, 
+                        full_name: item.full_name.toUpperCase() 
+                    }));
+                    console.log("--- KẾT QUẢ CHUẨN HÓA ---");
+                    console.table(normList);
+                    break;
+
+                case 9:
+                    alert("Hẹn gặp lại!");
+                    isWorking = false;
+                    break;
+
+                default:
+                    alert("Lựa chọn không có trong menu.");
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
