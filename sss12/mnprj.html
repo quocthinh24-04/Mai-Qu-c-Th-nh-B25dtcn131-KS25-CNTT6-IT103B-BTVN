@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let students = [
+    { id: "01", name: "Nguyen Van A", age: 20, gpa: 8.5, status: "active" },
+    { id: "02", name: "Tran Thi B", age: 17, gpa: 7.2, status: "active" }
+];
+
+function createStudent() {
+    let id = prompt("Nhập ID:");
+    let name = prompt("Nhập Họ tên:");
+    let age = Number(prompt("Nhập Tuổi:"));
+    let gpa = Number(prompt("Nhập GPA:"));
+    let status = prompt("Trạng thái (active/inactive):");
+
+    let newStudent = { id: id, name: name, age: age, gpa: gpa, status: status };
+    students.push(newStudent);
+    alert("Thêm sinh viên mới thành công!");
+}
+
+function updateStudent() {
+    let idToFind = prompt("Nhập ID cần cập nhật:");
+    for (let i = 0; i < students.length; i++) {
+        if (students[i].id === idToFind) {
+            students[i].name = prompt("Nhập tên mới:");
+            students[i].gpa = Number(prompt("Nhập GPA mới:"));
+            alert("Đã cập nhật Profile!");
+            return;
+        }
+    }
+    alert("Không tìm thấy sinh viên!");
+}
+
+function deleteStudent() {
+    let idToFind = prompt("Nhập ID cần xóa:");
+    for (let i = 0; i < students.length; i++) {
+        if (students[i].id === idToFind) {
+            students.splice(i, 1);
+            alert("Đã xóa hoàn toàn!");
+            return;
+        }
+    }
+    alert("Không tìm thấy sinh viên!");
+}
+
+function restoreStudent() {
+    let idToFind = prompt("Nhập ID cần hồi phục:");
+    for (let i = 0; i < students.length; i++) {
+        if (students[i].id === idToFind) {
+            students[i].status = "active";
+            alert("Đã chuyển trạng thái sang Active!");
+            return;
+        }
+    }
+    alert("Không tìm thấy sinh viên!");
+}
+function viewStudents() {
+    console.log("==== DANH SÁCH SINH VIÊN ====");
+    console.table(students);
+    alert("Đã in danh sách!");
+}
+function analyticsDashboard() {
+    let totalGpa = 0;
+    if (students.length === 0) return alert("Danh sách trống!");
+
+    for (let i = 0; i < students.length; i++) {
+        totalGpa += students[i].gpa;
+    }
+    let average = totalGpa / students.length;
+    alert("GPA trung bình toàn hệ thống: " + average.toFixed(2));
+}
+
+function mainMenu() {
+    let choice = "";
+    while (choice !== "0") {
+        choice = prompt(
+            "==== STUDENT MANAGER ADVANCED ====\n\n" +
+            "1. Create Student\n" +
+            "2. Update Student\n" +
+            "3. Soft Delete Student\n" +
+            "4. Restore Student\n" +
+            "5. View Students\n" +
+            "6. Analytics Dashboard\n" +
+            "0. Exit\n\n" +
+            "Nhập lựa chọn của anh:"
+        );
+
+        switch (choice) {
+            case "1": createStudent(); break;
+            case "2": updateStudent(); break;
+            case "3": deleteStudent(); break;
+            case "4": restoreStudent(); break;
+            case "5": viewStudents(); break;
+            case "6": analyticsDashboard(); break;
+            case "0": alert("Tạm biệt!"); break;
+            default: alert("Lựa chọn không hợp lệ!");
+        }
+    }
+}
+
+mainMenu();
+    </script>
+</body>
+</html>
